@@ -1,0 +1,13 @@
+//WIP to get the balance component to update the ballance in real time. 
+    case 'BALANCES_UPDATED':
+      return{
+        ...state,         
+        etherBalance:{
+          ...state.etherBalance,
+          balancesLoading: false
+        },
+        tokenBalance:{
+          ...state.tokenBalance,
+          balancesLoading: false
+        }
+      } //false for already loaded
