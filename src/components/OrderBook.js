@@ -6,10 +6,16 @@ import {
     accountSelector,
     orderBookSelector,
     orderBookLoadedSelector,
-    orderFillingSelector
+    orderFillingSelector, 
+    exchangeEtherBalanceSelector, 
+    exchangeTokenBalanceSelector
 }from '../store/selectors'
 import Spinner from './Spinner' //default function, no {}
 import {fillOrder} from '../store/interactions'
+
+
+
+
 
 
 const renderOrder = (order, props) => {
@@ -19,8 +25,8 @@ const renderOrder = (order, props) => {
             key={order.id}
             placement = 'auto'
             overlay={
-                <Tooltip id={order.id}>
-                    {`Click here to ${order.orderFillAction}`}
+                <Tooltip id={order.id}>                   
+                    {`Click here to ${order.orderFillAction}` }                   
                 </Tooltip>
             }
         >
@@ -86,6 +92,8 @@ function mapStateToProps(state){
         showOrderBook: orderBookLoaded && !orderFilling,//only show order book if it is loaded and not currently filling
 
         exchange: exchangeSelector(state),
+        exchangeEtherBalance: exchangeEtherBalanceSelector(state),
+        exchangeTokenBalance: exchangeTokenBalanceSelector(state),
         account: accountSelector(state)
     }
 }

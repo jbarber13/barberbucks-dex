@@ -19,7 +19,7 @@ class Navbar extends Component {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {this.props.account}
+               Your Account: {this.props.account}
             </a>
           </li>
         </ul>
@@ -29,8 +29,9 @@ class Navbar extends Component {
 }
 
 function mapStateToProps(state) {
+  
   return {
-    account: accountSelector(state) //display account name in top right of navbar, uses ../store/selectors.js, imported above
+    account: accountSelector(state), //display account name in top right of navbar, uses ../store/selectors.js, imported above    
   }
 }
 

@@ -25,7 +25,7 @@ import {
     tokenDepositAmountSelector, 
     tokenWithdrawAmountSelector    
 } from '../store/selectors'
-import {etherDepositAmountChanged, etherWithdrawAmountChanged, tokenDepositAmountChanged, tokenWithdrawAmountChanged, balancesLoaded} from '../store/actions'
+import {etherDepositAmountChanged, etherWithdrawAmountChanged, tokenDepositAmountChanged, tokenWithdrawAmountChanged} from '../store/actions'
 
 
 

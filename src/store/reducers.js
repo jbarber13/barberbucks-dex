@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import { ETHER_ADDRESS, getBalance } from '../utils';
+import { ETHER_ADDRESS } from '../utils';
 
 /***********************************************
  * talks to actions to update state on Redux

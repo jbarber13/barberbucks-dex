@@ -28,7 +28,7 @@ import {
   } from './actions'
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
-import {ETHER_ADDRESS, formatBalance} from '../utils'
+import {ETHER_ADDRESS} from '../utils'
 
 
 
@@ -102,6 +102,7 @@ export const loadAllOrders = async (exchange, dispatch) => {
 
   //fetch all oerders with 'Order' event stream
   const orderStream = await exchange.getPastEvents('Order', {fromBlock: 0, toBlock: 'latest'})//look on entire blockchain  
+  //console.log("LoadAllOrders: ", orderStream)
   //format
   const allOrders = orderStream.map((event) => event.returnValues)
    //add canceled order to redux store
@@ -136,6 +137,9 @@ export const loadBalances = async (dispatch, web3, exchange, token, account) => 
     window.alert('Please login with MetaMask')
   }
 }
+
+
+
 
 const _loadWalletBalances = async (event, dispatch) => {
   
@@ -189,19 +193,25 @@ export const cancelOrder = (dispatch, exchange, order, account) => {
 }
 //fill order on exchange contract
 export const fillOrder = (dispatch, exchange, order, account) => {
-  //use data from redux - https://web3js.readthedocs.io/en/v1.2.0/web3-eth-contract.html#methods-mymethod-send
-  exchange.methods.fillOrder(order.id).send({from: account})//This is the call to contract funtion in Solidity
-  .on('transactionHash', (hash) =>{
-    //dispatch to redux to display on app
-    dispatch(orderFilling())//fill is in progress, wait for emit from blockchain to confirm it has been cancelled
-    console.log("Fill Order Transaction Hash: ", hash)
-  })
-  .on('error', (error) => {
-    console.log(error)
-    window.alert('There was an error while filling')
-  })
 
-}
+  
+    //use data from redux - https://web3js.readthedocs.io/en/v1.2.0/web3-eth-contract.html#methods-mymethod-send
+    exchange.methods.fillOrder(order.id).send({from: account})//This is the call to contract funtion in Solidity
+    .on('transactionHash', (hash) =>{
+      //dispatch to redux to display on app
+      dispatch(orderFilling())//fill is in progress, wait for emit from blockchain to confirm it has been cancelled
+      console.log("Fill Order Transaction Hash: ", hash)
+    })
+    .on('error', (error) => {
+      console.log(error)
+      window.alert('There was an error while filling')
+    })
+
+  }
+
+ 
+
+
 //deposit ether to exchange contract
 export const depositEther = (dispatch, exchange, web3, amount, account) => {
   exchange.methods.depositEther().send({ from: account,  value: web3.utils.toWei(amount, 'ether') })//This is the call to contract funtion in Solidity
