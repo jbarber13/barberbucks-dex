@@ -70,7 +70,7 @@ const showForm = (props) => {
                         />
                     </div>                    
                 </div>
-                <button type="submit" className="btn btn-primary btn-block btn-sm">SUBMIT ORDER</button>
+                <button type="submit" className="btn btn-primary btn-block btn-sm">SUBMIT BUY ORDER</button>
                 {showBuyTotal ? <small>Total: {buyOrder.amount * buyOrder.price /**calculate total */} ETH</small> : null}
                 
             </form>
@@ -108,7 +108,7 @@ const showForm = (props) => {
                         />
                     </div>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-sm btn-block">Sell Order</button>
+                    <button type="submit" className="btn btn-primary btn-sm btn-block">SUBMIT SELL ORDER</button>
                     { showSellTotal ? <small>Total: {sellOrder.amount * sellOrder.price} ETH</small> : null }
                 </form>
             </Tab>
