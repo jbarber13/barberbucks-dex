@@ -161,6 +161,7 @@ export const subscribeToEvents = async (exchange, dispatch) => {
     dispatch(orderCancelled(event.returnValues)) //add canceled order to redux data
   })
   exchange.events.Trade({}, (error, event) => {
+    _loadWalletBalances(event, dispatch)//load balances for account heard in emit, some redundant code here......
     dispatch(orderFilled(event.returnValues))
   })
   exchange.events.Deposit({}, (error, event) => {    
