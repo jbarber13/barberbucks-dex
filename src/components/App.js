@@ -48,6 +48,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
+        If you are seeing this, you might not be connected to a network on MetaMask, once connected, refresh the page
         {this.props.contractsLoaded ? <Content /> : <div classname = "content"></div>}        
       </div>
     );
