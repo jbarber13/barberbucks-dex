@@ -1,6 +1,7 @@
 
+// SPDX-License-Identifier: LICENSE
 /*
-TODO: 
+Description: 
 [x] Set the fee
 [x] Deposit Ether
 [x] Withdraw Ether
