@@ -143,7 +143,7 @@ const showForm = (props) => {
             </Tab>
         </Tabs>
     )
-}
+}//show form
 
 class NewOrder extends Component {
     render(){

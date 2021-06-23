@@ -15,6 +15,7 @@ class Content extends Component {
   }
 
 
+  
   async loadBlockchainData(props) {    
 
     const {dispatch, exchange} = props

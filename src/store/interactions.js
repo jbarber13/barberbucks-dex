@@ -108,6 +108,7 @@ export const loadAllOrders = async (exchange, dispatch) => {
    //add canceled order to redux store
   //import from actions.js
   dispatch(allOrdersLoaded(allOrders))
+  
 
 
   //calculate open orders 
@@ -157,6 +158,7 @@ const _loadWalletBalances = async (event, dispatch) => {
 
 //listen for events emitted from contract and update component in real time
 export const subscribeToEvents = async (exchange, dispatch) => {
+  console.log( "subscribeToEvents", exchange)
   exchange.events.Cancel({}, (error, event) => {
     dispatch(orderCancelled(event.returnValues)) //add canceled order to redux data
   })

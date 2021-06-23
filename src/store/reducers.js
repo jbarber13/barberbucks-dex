@@ -149,13 +149,6 @@ function exchange(state = {}, action) {
           making: false
         }
       }
-
-
-
-      
-
-
-
     default:
       return state
   }
