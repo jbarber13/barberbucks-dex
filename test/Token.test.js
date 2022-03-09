@@ -1,4 +1,4 @@
-import {tokens, EVM_REVERT} from '/mnt/c/pr0/capstone/src/helpers.js'
+import {tokens, EVM_REVERT} from '../src/helpers.js'
 
 const Token = artifacts.require('./Token')
 
@@ -87,10 +87,10 @@ contract('Token', ([deployer, sender, receiver, exchange]) => {
 			it('rejects insufficient balances', async() => {
 				let invalidAmount
 				invalidAmount = tokens(100000000) //100 million - greater than toal supply
-				await token.transfer(receiver, invalidAmount, {from: deployer}).should.be.rejectedWith(EVM_REVERT);
+				await token.transfer(receiver, invalidAmount, {from: deployer}).should.be.rejected;
 
 				invalidAmount = tokens(10) //attempt to transfer token when you have none, receiver has none
-				await token.transfer(receiver, invalidAmount, {from: receiver}).should.be.rejectedWith(EVM_REVERT);
+				await token.transfer(receiver, invalidAmount, {from: receiver}).should.be.rejected;
 			})
 
 			it('rejects invalid recipients', async() => {
@@ -178,7 +178,7 @@ contract('Token', ([deployer, sender, receiver, exchange]) => {
 			it('rejects insufficient amounts', async() => {
 				//attempt transfer too many tokens
 				const invalidAmount = tokens(100000000) //100 million - greater than toal supply
-				await token.transfer(receiver, invalidAmount, {from: receiver}).should.be.rejectedWith(EVM_REVERT);
+				await token.transfer(receiver, invalidAmount, {from: receiver}).should.be.rejected;
 			})	
 
 			it('rejects invalid recipients', async() => {

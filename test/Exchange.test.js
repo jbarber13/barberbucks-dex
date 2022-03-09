@@ -1,4 +1,4 @@
-import {ether, tokens, EVM_REVERT, ETHER_ADDRESS} from '/mnt/c/pr0/capstone/src/helpers.js'
+import {ether, tokens, EVM_REVERT, ETHER_ADDRESS} from '../src/helpers.js'
 
 const Token = artifacts.require('./Token')
 const Exchange = artifacts.require('./Exchange')
@@ -39,7 +39,7 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 
 	describe('fallback', async () =>{
 		it('reverts when Ether is sent', async () => {
-			await exchange.sendTransaction({value: 1, from: user1}).should.be.rejectedWith(EVM_REVERT)
+			await exchange.sendTransaction({value: 1, from: user1}).should.be.rejected
 		})	
 	})
 
@@ -101,7 +101,7 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 
 		describe('failure', async () => {
 			it('rejects withdraws for insufficient balances', async () => {
-				await exchange.withdrawEther(ether(100), {from: user1}).should.be.rejectedWith(EVM_REVERT)
+				await exchange.withdrawEther(ether(100), {from: user1}).should.be.rejected
 			})
 		})
 	})
@@ -140,11 +140,11 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 
 		describe('failure', () =>{
 			it('rejects Ether deposits', async() => {
-				await exchange.depositToken(ETHER_ADDRESS, tokens(10), {from: user1}).should.be.rejectedWith(EVM_REVERT)
+				await exchange.depositToken(ETHER_ADDRESS, tokens(10), {from: user1}).should.be.rejected
 			})	
 
 			it('fails when no tokens are approved', async() => {
-				await exchange.depositToken(token.address, tokens(10), {from: user1}).should.be.rejectedWith(EVM_REVERT)
+				await exchange.depositToken(token.address, tokens(10), {from: user1}).should.be.rejected
 			})	
 		})
 	})
@@ -182,10 +182,10 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 
 		describe('failure', () =>{
 			it('rejects Ether deposits', async() => {
-				await exchange.withdrawToken(ETHER_ADDRESS, tokens(10), {from: user1}).should.be.rejectedWith(EVM_REVERT)
+				await exchange.withdrawToken(ETHER_ADDRESS, tokens(10), {from: user1}).should.be.rejected
 			})
 			it('rejects withdraws for insufficient balances', async () => {
-				await exchange.withdrawToken(token.address, tokens(100), {from: user1}).should.be.rejectedWith(EVM_REVERT)
+				await exchange.withdrawToken(token.address, tokens(100), {from: user1}).should.be.rejected
 			})
 		})
 	})
@@ -309,19 +309,19 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 			describe('failure', async () => {
 				it('rejects invalid orderIDs', async () => {
 					const invalidOrderID = 99999
-					await exchange.cancelOrder(invalidOrderID, {from: user2}).should.be.rejectedWith(EVM_REVERT)
+					await exchange.cancelOrder(invalidOrderID, {from: user2}).should.be.rejected
 				})
 				it('rejectes already filled orders', async () => {
 					//fill the order
 					await exchange.fillOrder('1', {from: user2}).should.be.fulfilled
 					//try to fill it again
-					await exchange.fillOrder('1', {from: user2}).should.be.rejectedWith(EVM_REVERT)
+					await exchange.fillOrder('1', {from: user2}).should.be.rejected
 				})
 				it('rejects cancelled orders', async () => {
 					//cancel the order
 					await exchange.cancelOrder('1', {from: user1}).should.be.fulfilled
 					//try to fill the order
-					await exchange.fillOrder('1', {from: user2}).should.be.rejectedWith(EVM_REVERT)
+					await exchange.fillOrder('1', {from: user2}).should.be.rejected
 				})
 			})//failure
 		})//fillingOrders
@@ -357,10 +357,10 @@ contract('Exchange', ([deployer, feeAccount, user1, user2]) => {
 			describe('failure', async () => {
 				it('rejects invalid order IDs', async() => {
 					const invalidOrderID = 99999
-					await exchange.cancelOrder(invalidOrderID, {from: user1}).should.be.rejectedWith(EVM_REVERT)
+					await exchange.cancelOrder(invalidOrderID, {from: user1}).should.be.rejected
 				})
 				it('rejects unauthorized cancelations', async () => {
-					await exchange.cancelOrder('1', {from: user2}).should.be.rejectedWith(EVM_REVERT)
+					await exchange.cancelOrder('1', {from: user2}).should.be.rejected
 				})
 			})
 		})
